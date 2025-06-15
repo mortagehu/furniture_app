@@ -1,49 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Furniture</title>
+    <title>Adj hozzá új bútort</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body class="container mt-4">
-    <h2>Create New Furniture</h2>
+    <h2>Új bútor hozzáadása</h2>
 
     <form th:action="@{/furniture/save}" th:object="${furniture}" method="post" class="mt-3">
         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
+            <label for="name" class="form-label">Név</label>
             <input type="text" th:field="*{name}" class="form-control" id="name" required>
         </div>
 
         <div class="mb-3">
-            <label for="price" class="form-label">Price</label>
+            <label for="price" class="form-label">Ár</label>
             <input type="number" th:field="*{price}" step="0.01" class="form-control" id="price" required>
         </div>
 
         <!-- Dropdown to select existing category -->
-        <div class="mb-3">
-            <label for="category" class="form-label">Select Existing Category</label>
-            <select th:field="*{category.id}" class="form-select" id="category">
-                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
-            </select>
-        </div>
+    <!-- ...existing code... -->
+<div class="mb-3">
+    <label for="category" class="form-label">Válassz meglévő kategóriák közül</label>
+    <select th:field="*{category.id}" class="form-select" id="category">
+        <option value="" selected>-- Válassz kategóriát --</option>
+        <option th:each="cat : ${categories}" 
+                th:value="${cat.id}" 
+                th:text="${cat.name}">
+        </option>
+    </select>
+</div>
+<!-- ...existing code... -->
 
         <!-- Optional text field to create a new category -->
         <div class="mb-3">
-            <label for="newCategoryName" class="form-label">Or Add New Category</label>
-            <input type="text" name="newCategoryName" class="form-control" id="newCategoryName" placeholder="Enter new category name">
+            <label for="newCategoryName" class="form-label">Vagy adj hozzá egy új kategóriát</label>
+            <input type="text" name="newCategoryName" class="form-control" id="newCategoryName" placeholder="Új kategória">
         </div>
 
         <div class="mb-3">
-            <label for="imageUrl" class="form-label">Image URL</label>
+            <label for="imageUrl" class="form-label">Kép URL</label>
             <input type="text" th:field="*{imageUrl}" class="form-control" id="imageUrl" placeholder="https://example.com/image.jpg">
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
+            <label for="description" class="form-label">Leírás</label>
             <textarea th:field="*{description}" class="form-control" id="description" rows="3"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-success">Save</button>
-        <a th:href="@{/furniture}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-success">Mentés</button>
+        <a th:href="@{/furniture}" class="btn btn-secondary">Mégse</a>
     </form>
 </body>
 </html>

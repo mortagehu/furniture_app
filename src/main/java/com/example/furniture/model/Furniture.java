@@ -20,10 +20,10 @@ public class Furniture {
     @JoinColumn(name = "category_id")  // Optional: to specify the foreign key column name
     private Category category;
 
-    // Constructors
+    
     public Furniture() {}
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

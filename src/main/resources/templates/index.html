@@ -51,7 +51,7 @@
             <a class="btn btn-primary" th:href="@{/furniture/create}">Add New Furniture</a>
         </div>
     </div>
-        <!-- ...existing card code... -->
+    
         <div class="row">
             <div class="col-md-3 mb-4" th:each="item : ${furnitureList}">
                 <div class="card h-100">
@@ -63,9 +63,9 @@
                         <p class="card-text" th:text="${item.description}">Description</p>
                     </div>
                     <div class="card-footer">
-                        <a th:href="@{'/furniture/edit/' + ${item.id}}" class="btn btn-sm btn-warning">Edit</a>
+                        <a th:href="@{'/furniture/edit/' + ${item.id}}" class="btn btn-sm btn-warning">Szerkesztés</a>
                         <a th:href="@{'/furniture/delete/' + ${item.id}}" class="btn btn-sm btn-danger"
-                           onclick="return confirm('Are you sure?')">Delete</a>
+                           onclick="return confirm('Biztosan törli ezt a bútort?')">Törlés</a>
                     </div>
                 </div>
             </div>

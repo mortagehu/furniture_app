@@ -16,10 +16,10 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Furniture> furnitures;
 
-    // Constructors
+    
     public Category() {}
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }
