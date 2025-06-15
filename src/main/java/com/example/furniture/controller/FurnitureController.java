@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/furniture")
 public class FurnitureController {
@@ -81,4 +82,12 @@ public String saveFurniture(@ModelAttribute Furniture furniture,
         furnitureRepository.delete(furniture);
         return "redirect:/furniture";
     }
+
+    @GetMapping("/search")
+    public String searchFurniture(@RequestParam String query, Model model) {
+    List<Furniture> searchResults = furnitureRepository.findByNameContainingIgnoreCase(query);
+    model.addAttribute("furnitureList", searchResults);
+    model.addAttribute("searchQuery", query);
+    return "index";
+}
 }
