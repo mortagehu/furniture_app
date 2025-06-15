@@ -1,4 +1,3 @@
-<!-- src/main/resources/templates/create.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -19,11 +18,28 @@
             <input type="number" th:field="*{price}" step="0.01" class="form-control" id="price" required>
         </div>
 
+        <!-- Dropdown to select existing category -->
         <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-            <select th:field="*{category}" class="form-control" id="category" required>
-                <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat.name}"></option>
+            <label for="category" class="form-label">Select Existing Category</label>
+            <select th:field="*{category.id}" class="form-select" id="category">
+                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
             </select>
+        </div>
+
+        <!-- Optional text field to create a new category -->
+        <div class="mb-3">
+            <label for="newCategoryName" class="form-label">Or Add New Category</label>
+            <input type="text" name="newCategoryName" class="form-control" id="newCategoryName" placeholder="Enter new category name">
+        </div>
+
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Image URL</label>
+            <input type="text" th:field="*{imageUrl}" class="form-control" id="imageUrl" placeholder="https://example.com/image.jpg">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea th:field="*{description}" class="form-control" id="description" rows="3"></textarea>
         </div>
 
         <button type="submit" class="btn btn-success">Save</button>

@@ -30,19 +30,33 @@ public class FurnitureController {
         model.addAttribute("furnitureList", furnitureList);
         return "index"; // Your main view
     }
+@GetMapping("/create")
+public String showCreateForm(Model model) {
+    model.addAttribute("furniture", new Furniture());
+    model.addAttribute("categories", categoryRepository.findAll());
+    return "create";
+}
 
-    @GetMapping("/create")
-    public String showCreateForm(Model model) {
-        model.addAttribute("furniture", new Furniture());
-        model.addAttribute("categories", categoryRepository.findAll());
-        return "create";
+@PostMapping("/save")
+public String saveFurniture(@ModelAttribute Furniture furniture,
+                            @RequestParam(required = false) String newCategoryName) {
+
+    if (newCategoryName != null && !newCategoryName.trim().isEmpty()) {
+        Category newCategory = new Category();
+        newCategory.setName(newCategoryName.trim());
+        categoryRepository.save(newCategory);
+        furniture.setCategory(newCategory);
+    } else if (furniture.getCategory() != null && furniture.getCategory().getId() != null) {
+        Category existingCategory = categoryRepository.findById(furniture.getCategory().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
+        furniture.setCategory(existingCategory);
+    } else {
+        throw new IllegalArgumentException("Category is required.");
     }
 
-    @PostMapping("/save")
-    public String saveFurniture(@ModelAttribute Furniture furniture) {
-        furnitureRepository.save(furniture);
-        return "redirect:/furniture";
-    }
+    furnitureRepository.save(furniture);
+    return "redirect:/furniture";
+}
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {

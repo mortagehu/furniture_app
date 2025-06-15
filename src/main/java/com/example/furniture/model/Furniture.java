@@ -12,6 +12,9 @@ public class Furniture {
     private String name;
     private String material;
     private double price;
+    private String imageUrl;
+    private String description;
+
 
     @ManyToOne
     @JoinColumn(name = "category_id")  // Optional: to specify the foreign key column name
@@ -27,6 +30,21 @@ public class Furniture {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {
